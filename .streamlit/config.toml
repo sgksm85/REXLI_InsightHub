@@ -1,3 +1,12 @@
 # .streamlit/config.toml
+[server]
+headless = true
+
+# ページの設定
 [theme]
 base="light"
+
+# アプリのタイトルとメニューの名称を設定
+[general]
+pageTitle = "REXLI InsightHub"  # ページのタイトルを変更
+appMenuItem = "Home"            # メニュー項目の名前を変更

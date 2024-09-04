@@ -4,7 +4,7 @@ import streamlit as st
 st.set_page_config(page_title="Home", page_icon="🏠")
 
 st.title("Welcome to REXLI Insight hub feat.K")
-st.write("ここはホームページです。左のメニューからクライアントレポートページに移動してください。")
+st.write("ここはホームページです。左のメニューからクライアントレポートページに移動してください。他のページは、工事中です。")
 
 # CSSファイルを読み込み
 def load_css(file_path):
