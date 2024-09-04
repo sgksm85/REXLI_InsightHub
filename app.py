@@ -1,10 +1,12 @@
 import streamlit as st
 
-# Homeページの設定
-st.set_page_config(page_title="Home", page_icon="🏠")
+# Homeページのコンテンツ
+st.title("Welcome to REXLI InsightHub")
+st.write("ここはホームページです。クライアントレポート以外のページは、工事中です。")
 
-st.title("Welcome to REXLI Insight hub feat.Kasumi")
-st.write("ここはホームページです。左のメニューからクライアントレポートページに移動してください。他のページは、工事中です。")
+# クライアントレポートセクション
+st.markdown("### Client Reports")
+st.write("クライアント別のレポートを見ることができます")
 
 # CSSファイルを読み込み
 def load_css(file_path):
