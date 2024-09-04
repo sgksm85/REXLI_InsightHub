@@ -10,6 +10,9 @@ st.set_page_config(page_title="Client Report", page_icon="📊")
 base_client_folder = "data/clients"
 clients = [client for client in os.listdir(base_client_folder) if os.path.isdir(os.path.join(base_client_folder, client))]
 
+# クライアントリストをあいうえお順にソート
+clients.sort(key=lambda x: x.lower())
+
 # サイドバーにクライアント名をリンク形式で表示
 st.sidebar.title("Client Reports")
 for client in clients:

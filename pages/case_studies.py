@@ -1,6 +1,8 @@
 # Case studies page
 import streamlit as st
 
+st.write("ここはまだ工事中ですよ！")
+
 
 # CSSファイルを読み込み
 def load_css(file_path):

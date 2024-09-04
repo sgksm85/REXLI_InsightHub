@@ -1,6 +1,7 @@
 # Overview page
 import streamlit as st
 
+st.write("ここも！！！まだ工事中ですよ！")
 
 # CSSファイルを読み込み
 def load_css(file_path):

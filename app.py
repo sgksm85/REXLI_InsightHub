@@ -2,11 +2,11 @@ import streamlit as st
 
 # Homeページのコンテンツ
 st.title("Welcome to REXLI InsightHub powered by Kasumi")
-st.write("ここはホームページです。クライアントレポート以外のページは、工事中です。")
+st.write("ここはホームページです。クライアントレポートページ以外は、工事中です。")
 
 # クライアントレポートセクション
 st.markdown("### Client Reports")
-st.write("クライアント別のレポートを見ることができます")
+st.write("クライアント別のレポートが閲覧できます。")
 
 # CSSファイルを読み込み
 def load_css(file_path):

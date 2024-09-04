@@ -44,10 +44,8 @@ a:hover {
   color: #FF4500; /* ホバー時に色を変更 */
 }
 
-
-
-
   h1 {
+    font-family: 'LINESeedJP', sans-serif !important;
     color: #4A4A4A;
     font-weight: bold;
     margin-top: 1.5em;
@@ -56,6 +54,7 @@ a:hover {
   }
   
   h2 {
+    font-family: 'LINESeedJP', sans-serif !important;
     color: #238D8D;
     font-weight: bold;
     border-bottom: none;
@@ -70,6 +69,7 @@ a:hover {
   }
   
   h3 {
+    font-family: 'LINESeedJP', sans-serif !important;
     color: #4A4A4A;
     font-weight: bold;
     margin-bottom: 20px;
@@ -78,6 +78,7 @@ a:hover {
   }
 
   h4 {
+    font-family: 'LINESeedJP', sans-serif !important;
     color: #4A4A4A; 
     font-weight: bold;
     line-height: 1.65;
@@ -88,6 +89,11 @@ a:hover {
   strong {
     color: #4A4A4A; 
     font-weight: bold;
+  }
+
+  .st-emotion-cache-5rimss a{
+    font-family: 'LINESeedJP', sans-serif !important;
+    font-size: 15px;
   }
 
   blockquote{
