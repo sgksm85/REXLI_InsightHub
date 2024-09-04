@@ -1,8 +1,8 @@
 # .streamlit/config.toml
 
 [server]
-headless = false
-open_browser = true  # ブラウザを自動的に開く
+headless = true  # 通常はサーバーモードなのでtrueに設定
+open_browser = false  # Streamlit Cloudではブラウザを開く必要がないのでfalseに
 
 # ページの設定
 [theme]
