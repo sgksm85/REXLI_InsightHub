@@ -1,0 +1,302 @@
+/* Custom CSS */
+
+@font-face {
+  font-family: 'LINESeedJP';
+  src: url('https://www.shigi-k.com/fonts/LINE_Seed_JP/LINESeedJP_OTF_Rg.woff2') format('woff2'),
+       url('https://www.shigi-k.com/fonts/LINE_Seed_JP/LINESeedJP_OTF_Rg.woff') format('woff');
+  font-weight: 400;  
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'LINESeedJP';
+  src: url('https://www.shigi-k.com/fonts/LINE_Seed_JP/LINESeedJP_OTF_Bd.woff2') format('woff2'),
+       url('https://www.shigi-k.com/fonts/LINE_Seed_JP/LINESeedJP_OTF_Bd.woff') format('woff');
+  font-weight: 700; 
+  font-style: normal;  
+}
+
+body {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
+
+.st-emotion-cache-1hynsf2 {
+  padding-top: 0px !important;  /* 余白を取り除く */
+}
+
+.element-container {
+  margin-top: 0px !important;
+  padding-top: 0px !important;  /* 上部の余白を削除 */
+}
+
+body {
+  font-family: 'LINESeedJP', sans-serif !important;
+  color:#4A4A4A;
+  line-height: 1.85;
+  font-size: 16px;
+  letter-spacing:1.15px;
+}
+
+p{
+  line-height: 1.85;
+}
+
+a {
+  color: #1E90FF; /* 青色のリンク */
+  text-decoration: none; /* 下線を削除 */
+  font-size: 16px;
+}
+
+a:hover {
+  color: #FF4500; /* ホバー時に色を変更 */
+}
+
+
+
+
+  h1 {
+    color: #4A4A4A;
+    font-weight: bold;
+    margin-top: 1.5em;
+    margin-bottom: 20px;
+    font-size:28px;
+  }
+  
+  h2 {
+    color: #238D8D;
+    font-weight: bold;
+    border-bottom: none;
+    padding-bottom: 0.5em;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    border-bottom-color: whitesmoke;
+    margin-top: 35px !important;
+    margin-bottom: 20px;
+    line-height: 1.5;
+    font-size:24px;
+  }
+  
+  h3 {
+    color: #4A4A4A;
+    font-weight: bold;
+    margin-bottom: 20px;
+    margin-top:40px !important;
+    font-size:22px;
+  }
+
+  h4 {
+    color: #4A4A4A; 
+    font-weight: bold;
+    line-height: 1.65;
+    margin-top: 1.5em;
+    margin-bottom: 18px;
+  }
+
+  strong {
+    color: #4A4A4A; 
+    font-weight: bold;
+  }
+
+  blockquote{
+    font-size: 14px;
+    padding: 5px 15px;
+    max-width: 650px;
+    background: #f2f2f2;
+    border-left: 3px solid #329d88;
+  }
+
+  ol + blockquote,
+  ul + blockquote{
+    margin-inline-start:30px;
+    margin-inline-end:30px;
+  }
+
+  blockquote p{
+    margin-bottom: 4px; 
+   font-size: 14px;
+  }
+  
+  blockquote ul{
+    margin-bottom: 0;
+  }
+
+  blockquote ul li{
+    padding-bottom: 1.45px;
+    line-height: 1.7;
+    font-size: 14px;
+    margin-bottom:0px;
+  }
+
+blockquote a{
+  font-size: 14px;
+}
+
+pre{
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+  ul>li{
+    padding-bottom: 1.45px;
+    line-height: 1.9;
+    font-size: 16px;
+    margin-bottom: 6px;
+  }
+
+  ol>li{
+    margin-bottom: 6px;
+    font-size: 16px;
+  }
+
+  ol>li p{
+    margin-bottom: 8px;
+  }
+
+  img{
+    width: 50%;
+    margin: 30px 15px;
+  }
+
+  .rd{
+    color:#FF5151 !important;
+    font-weight: bold;
+  }
+
+  pre[class*=language-],
+  code{
+    font-family: 'LINESeedJP', sans-serif !important;
+    line-height: 1.7;
+    font-size:15px;
+}
+
+  /* テーブル */
+
+  /* テーブル全体に適用するクラス */
+  .custom-report-table {
+    border-collapse: collapse;
+  }
+
+  /* ヘッダ行に適用するクラス */
+  .custom-report-table .table-header {
+    background: linear-gradient(to bottom, #34AFAFFF, #299A9AFF);
+    color: #fff;
+    text-align: center;
+  }
+
+  .custom-report-table .table-header td{
+    padding: 10px; 
+    font-weight:bold;
+  }
+
+  /* テーブルのセルに適用するクラス */
+  .custom-report-table .table-cell {
+    padding: 10px;
+    border: 1px solid #000;
+    background-color: white;
+    color: #000;
+  }
+
+  .custom-report-table .table-cell-gr td{
+    font-size:15px;
+    padding: 7px 10px;
+    border: 1px solid #000;
+    background-color: #f0f0f0;
+    color: #000;
+  }
+
+  .bm-double{
+    border-bottom: 3px double #000 !important;
+  }
+
+  .spacer{
+    height: 10px;
+  }
+
+  .spacer td{
+    border: none; 
+    background-color: transparent;
+    padding:0; 
+  }
+
+  .tr{
+    text-align:right;
+  }
+
+  /* 右寄せのクラス */
+  .custom-report-table .right-align {
+    text-align: right;
+  }
+
+  /* 二重線のボーダーを使うセル */
+  .custom-report-table .double-border {
+    border-bottom: 3px double #000;
+  }
+
+  /* 内訳行に適用するクラス */
+  .custom-report-table .table-cell[data-label="【内訳：顕在層 / 潜在層】"] {
+    background-color: #f0f0f0;
+    font-size: 14px;
+  }
+
+  td,th{
+    border: 1px solid #000;
+    border-color:#000 !important;
+  }
+
+  .vscode-light h1, .vscode-light h2, .vscode-light hr, .vscode-light td {
+    border-color: transparent;
+  }
+
+  /* プレビュー特有のコード */
+  table {
+    width: 100%;
+    table-layout: auto;
+    word-break: break-word;
+  }
+
+  .alert {
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    display: block;
+    width: auto;
+    padding: 20px 15px;
+  }
+
+  .alert h1,.alert h2,.alert h3,.alert h4{
+    margin-top: 0 !important;
+  }
+
+  .alert > p,
+  .alert > ul {
+    margin-bottom: 0;
+  }
+  .alert-red {
+    color: #a94442;
+    background-color: #f2dede;
+    border-color: #ebccd1;
+  }
+
+  .alert-green {
+    color: #3c763d;
+    background-color: #dff0d8;
+    border-color: #d6e9c6;
+  }
+
+  .alert-blue {
+    color: #31708f;
+    background-color: #d9edf7;
+    border-color: #bce8f1;
+  }
+
+  .alert-yellow {
+    color: #8a6d3b;
+    background-color: #fcf8e3;
+    border-color: #faebcc;
+  }
+
+  * {
+    overflow: visible;
+  }
