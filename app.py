@@ -3,7 +3,7 @@ import streamlit as st
 # Homeページの設定
 st.set_page_config(page_title="Home", page_icon="🏠")
 
-st.title("Welcome to REXLI_Innovision feat.K Project")
+st.title("Welcome to REXLI Insight hub feat.K")
 st.write("ここはホームページです。左のメニューからクライアントレポートページに移動してください。")
 
 # CSSファイルを読み込み
