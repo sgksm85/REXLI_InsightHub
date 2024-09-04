@@ -1,6 +1,8 @@
 # .streamlit/config.toml
+
 [server]
-headless = true
+headless = false
+open_browser = true  # ブラウザを自動的に開く
 
 # ページの設定
 [theme]
