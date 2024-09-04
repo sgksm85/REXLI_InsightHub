@@ -1,7 +1,7 @@
 import streamlit as st
 
 # Homeページのコンテンツ
-st.title("Welcome to REXLI InsightHub")
+st.title("Welcome to REXLI InsightHub powered by Kasumi")
 st.write("ここはホームページです。クライアントレポート以外のページは、工事中です。")
 
 # クライアントレポートセクション
