@@ -33,6 +33,9 @@ if selected_client:
     months = [folder for folder in os.listdir(client_folder) if os.path.isdir(os.path.join(client_folder, folder))]
 
     if months:
+        # 月を昇順（あいうえお順）にソート
+        months.sort()
+
         # 月を選択
         selected_month = st.selectbox("月を選択", months)
 
