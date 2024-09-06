@@ -8,7 +8,7 @@ REXLI_InsightHub/
 │   └── client_report.py  # Client Reportのページ
 ├── data/                     # レポートデータ
 │   ├── clients/              # クライアント別データ
-                └── R203_ホワイトニングカフェ/
+                └── R000_client_a/
                     ├── 2408/
                     │   ├── report1.md
                     │   ├── report2.md
