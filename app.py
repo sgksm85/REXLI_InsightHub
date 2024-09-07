@@ -1,8 +1,11 @@
 import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
-import japanize_matplotlib
 import matplotlib.dates as mdates
+import matplotlib.font_manager as fm
+
+# 日本語フォントの設定
+plt.rcParams['font.family'] = 'Noto Sans CJK JP'
 
 # カスタムCSSを追加
 st.markdown("""
