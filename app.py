@@ -2,11 +2,7 @@ import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
 import japanize_matplotlib
-import math
-import japanize_matplotlib
-from datetime import datetime, timedelta
 import matplotlib.dates as mdates
-import numpy as np
 
 # カスタムCSSを追加
 st.markdown("""
@@ -85,7 +81,7 @@ def create_client_chart(client):
     # 友だち数のY軸の範囲を調整
     min_friends = client_data['月末有効友だち数'].min()
     max_friends = client_data['月末有効友だち数'].max()
-    y_margin = (max_friends - min_friends) * 0.3  # 30%のマージン
+    y_margin = (max_friends - min_friends) * 0.1  # 10%のマージン
     ax1.set_ylim(min_friends - y_margin, max_friends + y_margin)
     
     # 月間ブロック数のプロット（棒グラフ）
