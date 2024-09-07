@@ -66,13 +66,16 @@ clients = df_last_6_months['クライアント名'].unique()
 def create_client_chart(client):
     client_data = df_last_6_months[df_last_6_months['クライアント名'] == client]
     
-    fig, ax1 = plt.subplots(figsize=(12, 6))
+    fig, ax1 = plt.subplots(figsize=(10, 6))  # グラフのサイズを調整
     
     # 月末有効友だち数のプロット
-    color1 = '#1f77b4'  # 青色
-    line1 = ax1.plot(client_data['年月'], client_data['月末有効友だち数'], marker='o', color=color1, label='月末有効友だち数')
-    ax1.set_ylabel('月末有効友だち数', fontsize=12, color=color1)
-    ax1.tick_params(axis='y', labelcolor=color1, labelsize=10)
+    line_color = '#3AC0C4'  # 線の色（青）
+    fill_color = '#E8F9F9'  # 塗りつぶしの色（薄い青）
+    
+    line1 = ax1.plot(client_data['年月'], client_data['月末有効友だち数'], marker='o', color=line_color, label='月末有効友だち数')
+    ax1.fill_between(client_data['年月'], client_data['月末有効友だち数'], color=fill_color, alpha=0.3)
+    ax1.set_ylabel('月末有効友だち数', fontsize=12, color=line_color)
+    ax1.tick_params(axis='y', labelcolor=line_color, labelsize=13)  # Y軸のフォントサイズを変更
     
     # 友だち数のY軸の範囲を調整
     min_friends = client_data['月末有効友だち数'].min()
@@ -82,8 +85,8 @@ def create_client_chart(client):
     
     # 月間ブロック数のプロット（棒グラフ）
     ax2 = ax1.twinx()
-    bar_color = '#ff7f0e'  # オレンジ色
-    bar_alpha = 0.5  # 透明度
+    bar_color = '#3AC0C4'  # オレンジ色
+    bar_alpha = 0.8  # 透明度
     
     # 日付を数値に変換
     dates = mdates.date2num(client_data['年月'])
@@ -91,7 +94,7 @@ def create_client_chart(client):
     bar2 = ax2.bar(dates, client_data['月間ブロック数'], 
                    width=20, alpha=bar_alpha, color=bar_color, label='月間ブロック数')
     ax2.set_ylabel('月間ブロック数', fontsize=12, color=bar_color)
-    ax2.tick_params(axis='y', labelcolor=bar_color, labelsize=10)
+    ax2.tick_params(axis='y', labelcolor=bar_color, labelsize=15)  # Y軸のフォントサイズを変更
     
     # ブロック数のY軸の最大値を有効友だち数の30%に設定
     max_friends = client_data['月末有効友だち数'].max()
@@ -101,8 +104,8 @@ def create_client_chart(client):
     ax1.xaxis.set_major_locator(mdates.MonthLocator())
     ax1.xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m'))
     
-    # グラフの幅を調整（前後に15日分の余白を追加）
-    plt.xlim(earliest_date - pd.Timedelta(days=15), latest_date + pd.Timedelta(days=15))
+    # グラフの幅を調整（前後に5日分の余白を追加）
+    plt.xlim(earliest_date - pd.Timedelta(days=5), latest_date + pd.Timedelta(days=5))
     
     # 月の間隔を設定
     date_range = pd.date_range(start=earliest_date, end=latest_date, freq='MS')
@@ -121,7 +124,7 @@ def create_client_chart(client):
     labels = [l.get_label() for l in lines]
     ax1.legend(lines, labels, loc='upper left', fontsize=15)
     
-    plt.tight_layout()
+    plt.tight_layout()  # レイアウトを自動調整
     return fig
 
 # Streamlitアプリケーションの部分
