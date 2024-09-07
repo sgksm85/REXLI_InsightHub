@@ -3,13 +3,17 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
 import matplotlib.font_manager as fm
+import os
 
-# 日本語フォントの設定
-plt.rcParams['font.family'] = 'Noto Sans CJK JP'
+# フォントファイルのパスを指定
+font_path = os.path.join(os.path.dirname(__file__), 'NotoSansCJKjp-Regular.otf')
 
-# フォントが見つからない場合のフォールバック
-if fm.fontManager.findfont('Noto Sans CJK JP') is None:
-    print("Noto Sans CJK JP font not found. Using a system font.")
+# フォントファイルが存在する場合のみ追加
+if os.path.exists(font_path):
+    fm.fontManager.addfont(font_path)
+    plt.rcParams['font.family'] = 'Noto Sans CJK JP'
+else:
+    print(f"Font file not found at {font_path}. Using system fonts.")
     plt.rcParams['font.family'] = 'sans-serif'
     plt.rcParams['font.sans-serif'] = ['Hiragino Sans', 'Yu Gothic', 'Meirio', 'Takao', 'IPAexGothic', 'IPAPGothic', 'VL PGothic', 'Noto Sans CJK JP']
 
@@ -73,7 +77,7 @@ def create_client_chart(client):
     # 友だち数のY軸の範囲を調整
     min_friends = client_data['月末有効友だち数'].min()
     max_friends = client_data['月末有効友だち数'].max()
-    y_margin = (max_friends - min_friends) * 0.3  # 30%のマージン
+    y_margin = (max_friends - min_friends) * 0.5  # 50%のマージン
     ax1.set_ylim(min_friends - y_margin, max_friends + y_margin)
     
     # 月間ブロック数のプロット（棒グラフ）
