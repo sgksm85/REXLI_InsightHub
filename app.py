@@ -6,7 +6,7 @@ import matplotlib.font_manager as fm
 import os
 
 # フォントファイルのパスを指定
-font_path = os.path.join(os.path.dirname(__file__), 'NotoSansCJKjp-Regular.otf')
+font_path = os.path.join(os.path.dirname(__file__), 'NotoSansCJKjp-Medium.otf')
 
 # フォントファイルが存在する場合のみ追加
 if os.path.exists(font_path):
