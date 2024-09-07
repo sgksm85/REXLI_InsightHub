@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
-import matplotlib.font_manager as fm
+import japanize_matplotlib
 import math
 import japanize_matplotlib
 from datetime import datetime, timedelta
