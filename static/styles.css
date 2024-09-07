@@ -17,17 +17,19 @@
 }
 
 body {
-  margin-top: 0 !important;
-  padding-top: 0 !important;
-}
-
-
-body {
   font-family: 'LINESeedJP', sans-serif !important;
   color:#4A4A4A;
   line-height: 1.85;
   font-size: 16px;
   letter-spacing:1.15px;
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
+
+.st-emotion-cache-1y4p8pa {
+  /* width: 100%;
+  padding: 3rem 1rem 10rem; */
+  max-width: 58rem;
 }
 
 p{
