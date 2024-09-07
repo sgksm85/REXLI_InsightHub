@@ -1,20 +1,18 @@
 import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
-import japanize_matplotlib
 import matplotlib.dates as mdates
+import matplotlib.font_manager as fm
 
-# カスタムCSSを追加
-st.markdown("""
-<style>
-body {
-  font-family: 'Noto Sans CJK JP', sans-serif !important;
-}
-</style>
-""", unsafe_allow_html=True)
-
-# Matplotlibのフォント設定
+# 日本語フォントの設定
 plt.rcParams['font.family'] = 'Noto Sans CJK JP'
+
+# フォントが見つからない場合のフォールバック
+if fm.fontManager.findfont('Noto Sans CJK JP') is None:
+    print("Noto Sans CJK JP font not found. Using a system font.")
+    plt.rcParams['font.family'] = 'sans-serif'
+    plt.rcParams['font.sans-serif'] = ['Hiragino Sans', 'Yu Gothic', 'Meirio', 'Takao', 'IPAexGothic', 'IPAPGothic', 'VL PGothic', 'Noto Sans CJK JP']
+
 plt.rcParams['font.size'] = 15  # 基本のフォントサイズ
 
 # Homeページのコンテンツ
