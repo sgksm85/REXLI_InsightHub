@@ -1,11 +1,8 @@
 import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
+import japanize_matplotlib
 import matplotlib.dates as mdates
-import matplotlib.font_manager as fm
-
-# 日本語フォントの設定
-plt.rcParams['font.family'] = 'Noto Sans CJK JP'
 
 # カスタムCSSを追加
 st.markdown("""
@@ -40,14 +37,12 @@ for update in updates:
 st.write("")
 
 # LINEフレンドデータの取得と表示
+@st.cache_data
 def load_line_friends_data():
     sheet_id = '1Aw9EBFgiYQ4G7XzX9BwhjQt0oeDK3CmeJObsi5vabFI'
     gid = '0'
     url = f"https://docs.google.com/spreadsheets/d/{sheet_id}/export?format=csv&gid={gid}"
     df = pd.read_csv(url, encoding='utf-8')
-    
-    # 列名を確認し、必要に応じて修正
-    print(df.columns)
     
     # '年月'列が正しく認識されていない場合、列名を修正
     if '年月' not in df.columns:
@@ -58,14 +53,10 @@ def load_line_friends_data():
 
 df = load_line_friends_data()
 
-# 最新の日付を取得
+# データの処理部分
 latest_date = df['年月'].max()
-
-# 6ヶ月前の日付を計算
-six_months_ago = latest_date - pd.DateOffset(months=5)
-
-# データを最新6ヶ月分に制限
-df_last_6_months = df[df['年月'] > six_months_ago]
+earliest_date = latest_date - pd.DateOffset(months=5)
+df_last_6_months = df[(df['年月'] >= earliest_date) & (df['年月'] <= latest_date)]
 
 # グラフの作成と表示
 clients = df_last_6_months['クライアント名'].unique()
@@ -84,7 +75,7 @@ def create_client_chart(client):
     # 友だち数のY軸の範囲を調整
     min_friends = client_data['月末有効友だち数'].min()
     max_friends = client_data['月末有効友だち数'].max()
-    y_margin = (max_friends - min_friends) * 0.1  # 10%のマージン
+    y_margin = (max_friends - min_friends) * 0.3  # 30%のマージン
     ax1.set_ylim(min_friends - y_margin, max_friends + y_margin)
     
     # 月間ブロック数のプロット（棒グラフ）
@@ -96,7 +87,7 @@ def create_client_chart(client):
     dates = mdates.date2num(client_data['年月'])
     
     bar2 = ax2.bar(dates, client_data['月間ブロック数'], 
-                   width=15, alpha=bar_alpha, color=bar_color, label='月間ブロック数')
+                   width=20, alpha=bar_alpha, color=bar_color, label='月間ブロック数')
     ax2.set_ylabel('月間ブロック数', fontsize=12, color=bar_color)
     ax2.tick_params(axis='y', labelcolor=bar_color, labelsize=10)
     
@@ -108,11 +99,11 @@ def create_client_chart(client):
     ax1.xaxis.set_major_locator(mdates.MonthLocator())
     ax1.xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m'))
     
-    # グラフの幅を調整
-    plt.xlim(six_months_ago - pd.Timedelta(days=15), latest_date + pd.Timedelta(days=15))
+    # グラフの幅を調整（前後に15日分の余白を追加）
+    plt.xlim(earliest_date - pd.Timedelta(days=15), latest_date + pd.Timedelta(days=15))
     
-    # 月の間隔を狭める
-    date_range = pd.date_range(start=six_months_ago, end=latest_date + pd.Timedelta(days=31), freq='MS')
+    # 月の間隔を設定
+    date_range = pd.date_range(start=earliest_date, end=latest_date, freq='MS')
     ax1.set_xticks(date_range)
     
     # X軸のラベルを回転させて重なりを防ぐ
