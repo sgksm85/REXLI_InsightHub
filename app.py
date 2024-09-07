@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
 import matplotlib.font_manager as fm
 import os
+import locale
 
 # フォントファイルのパスを指定
 font_path = os.path.join(os.path.dirname(__file__), 'NotoSansCJKjp-Medium.otf')
@@ -46,7 +47,7 @@ def load_line_friends_data():
     url = f"https://docs.google.com/spreadsheets/d/{sheet_id}/export?format=csv&gid={gid}"
     df = pd.read_csv(url, encoding='utf-8')
     
-    # '年月'列が正しく認識されていない場合、列名を修正
+    # '年月'列が正しく認識されていない場、列名を修正
     if '年月' not in df.columns:
         df = df.rename(columns={df.columns[0]: '年月'})
     
@@ -68,6 +69,9 @@ def create_client_chart(client):
     
     fig, ax1 = plt.subplots(figsize=(10, 6))  # グラフのサイズを調整
     
+    # フォントの色を設定
+    font_color = '#4A4A4A'
+
     # 月末有効友だち数のプロット
     line_color = '#3AC0C4'  # 線の色（青）
     fill_color = '#E8F9F9'  # 塗りつぶしの色（薄い青）
@@ -77,7 +81,7 @@ def create_client_chart(client):
     ax1.set_ylabel('月末有効友だち数', fontsize=12, color=line_color)
     ax1.tick_params(axis='y', labelcolor=line_color, labelsize=13)  # Y軸のフォントサイズを変更
     
-    # 友だち数のY軸の範囲を調整
+    # 友だちのY軸の範囲を調整
     min_friends = client_data['月末有効友だち数'].min()
     max_friends = client_data['月末有効友だち数'].max()
     y_margin = (max_friends - min_friends) * 0.5  # 50%のマージン
@@ -142,8 +146,71 @@ for i, client in enumerate(clients):
         with col2:
             st.pyplot(create_client_chart(client))
 
-    # 各グラフの後に余白を追加
-    st.markdown("<br>", unsafe_allow_html=True)
+# クライアントごとのデータを計算する関数
+def calculate_client_stats(df):
+    stats = []
+    for client in df['クライアント名'].unique():
+        client_data = df[df['クライアント名'] == client].sort_values('年月')
+        latest_friends = client_data['月末有効友だち数'].iloc[-1]
+        initial_friends = client_data['月末有効友だち数'].iloc[0]
+        
+        # 6ヶ月間の平均友だち増加数/月を計算
+        if len(client_data) > 1:
+            friend_changes = client_data['月末有効友だち数'].diff()
+            avg_increase = friend_changes[1:].mean()
+        else:
+            avg_increase = 0
+        
+        # 成長率を計算
+        growth_rate = ((latest_friends - initial_friends) / initial_friends) * 100 if initial_friends > 0 else 0
+        
+        stats.append({
+            'クライアント名': client,
+            '最新の友だち有効数': f'{latest_friends:,}',
+            '平均友だち増加数/月': f'{round(avg_increase):,}',  # 四捨五入
+            '成長率(%)': f'{growth_rate:.2f}'  # 小数点以下2桁で四捨五入
+        })
+    
+    return pd.DataFrame(stats)
+
+# テーブルを追加
+st.subheader("クライアント別統計")
+client_stats = calculate_client_stats(df_last_6_months)
+
+# CSSスタイルを適用
+st.markdown("""
+<style>
+    .custom-table th{
+        border-color: #454545 !important;
+    }
+            
+    .custom-table {
+        width: 100%;
+        border-collapse: collapse;
+        color: #454545;
+    }
+    .custom-table th {
+        text-align: center;
+        background-color: #f0f2f6;
+        padding: 10px;
+        border: 1px solid #e0e0e0;
+    }
+    .custom-table td {
+        text-align: right;
+        padding: 10px;
+        border: 1px solid #e0e0e0;
+    }
+    .custom-table td:first-child {
+        text-align: left;
+    }
+</style>
+""", unsafe_allow_html=True)
+
+# データフレームをHTMLに変換
+html = client_stats.to_html(classes='custom-table', index=False)
+
+# HTMLテーブルを表示
+st.markdown(html, unsafe_allow_html=True)
 
 # CSSファイルを読み込み
 def load_css(file_path):
