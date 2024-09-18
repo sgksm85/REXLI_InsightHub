@@ -1,39 +1,10 @@
 import streamlit as st
-from airtable import Airtable
 import pandas as pd
 import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
 import matplotlib.font_manager as fm
 import os
 import locale
-from dotenv import load_dotenv
-
-# 現在のファイルのディレクトリパスを取得
-current_dir = os.path.dirname(os.path.abspath(__file__))
-
-# .envファイルのパスを構築
-dotenv_path = os.path.join(current_dir, '.env')
-
-# .envファイルが存在するか確認
-if os.path.exists(dotenv_path):
-    print(f".env file found at {dotenv_path}")
-    load_dotenv(dotenv_path)
-else:
-    print(f".env file not found at {dotenv_path}")
-
-# 環境変数を取得
-AIRTABLE_API_KEY = os.getenv('AIRTABLE_API_KEY')
-AIRTABLE_BASE_ID = os.getenv('AIRTABLE_BASE_ID')
-AIRTABLE_TABLE_NAME = os.getenv('AIRTABLE_TABLE_NAME')
-
-# デバッグ用に値を出力
-print(f"API Key: {AIRTABLE_API_KEY}")
-print(f"Base ID: {AIRTABLE_BASE_ID}")
-print(f"Table Name: {AIRTABLE_TABLE_NAME}")
-
-# 値が None の場合のエラーハンドリング
-if not all([AIRTABLE_API_KEY, AIRTABLE_BASE_ID, AIRTABLE_TABLE_NAME]):
-    raise ValueError("Airtableの認証情報が正しく設定されていません。環境変数を確認してください。")
 
 # フォントファイルのパスを指定
 font_path = os.path.join(os.path.dirname(__file__), 'NotoSansCJKjp-Medium.otf')
@@ -58,8 +29,7 @@ st.subheader("更新情報")
 
 # 更新情報のリスト
 updates = [
-    {"date": "2024年9月8日", "description": "わたしが友だち推移数を追加しました。"},
-    {"date": "2024年9月18日", "description": "わたしが友だち推移数を追加しました。"}
+    {"date": "2024年9月8日", "description": "わたしが友だち推移数を追加しました。"}
 ]
 
 # 更新情報の表示
@@ -72,25 +42,16 @@ st.write("")
 # LINEフレンドデータの取得と表示
 @st.cache_data
 def load_line_friends_data():
-    airtable = Airtable(AIRTABLE_BASE_ID, AIRTABLE_TABLE_NAME, api_key=AIRTABLE_API_KEY)
+    sheet_id = '1Aw9EBFgiYQ4G7XzX9BwhjQt0oeDK3CmeJObsi5vabFI'
+    gid = '0'
+    url = f"https://docs.google.com/spreadsheets/d/{sheet_id}/export?format=csv&gid={gid}"
+    df = pd.read_csv(url, encoding='utf-8')
     
-    # Airtableからすべてのレコードを取得
-    records = airtable.get_all()
+    # '年月'列が正しく認識されていない場、列名を修正
+    if '年月' not in df.columns:
+        df = df.rename(columns={df.columns[0]: '年月'})
     
-    # レコードをDataFrameに変換
-    df = pd.DataFrame([record['fields'] for record in records])
-    
-    # カラム名を変更
-    df = df.rename(columns={
-        '友だち登録月': '年月',
-        'クライアントコード': 'クライアント名',
-        '最終有効友だち数': '月末有効友だち数',
-        '月別ブロック数': '月間ブロック数'
-    })
-    
-    # '年月'列をdatetime型に変換（'YYYYMM'形式に対応）
-    df['年月'] = pd.to_datetime(df['年月'].astype(str), format='%Y%m')
-    
+    df['年月'] = pd.to_datetime(df['年月'], format='%Y-%m')
     return df
 
 df = load_line_friends_data()
@@ -136,7 +97,7 @@ def create_client_chart(client):
     
     bar2 = ax2.bar(dates, client_data['月間ブロック数'], 
                    width=20, alpha=bar_alpha, color=bar_color, label='月間ブロック数')
-    ax2.set_ylabel('月間���ロック数', fontsize=12, color=bar_color)
+    ax2.set_ylabel('月間ブロック数', fontsize=12, color=bar_color)
     ax2.tick_params(axis='y', labelcolor=bar_color, labelsize=15)  # Y軸のフォントサイズを変更
     
     # ブロック数のY軸の最大値を有効友だち数の30%に設定
