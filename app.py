@@ -101,6 +101,12 @@ def load_line_friends_data():
     # 重複を削除（必要な場合）
     df = df.drop_duplicates(subset=['年月', 'クライアント名'], keep='last')
     
+    # クライアントコードを数値として解釈し、ソート用の列を作���
+    df['クライアントコード数値'] = df['クライアント名'].str.extract('(\d+)').astype(float)
+    
+    # クライアントコード数値でソート
+    df = df.sort_values('クライアントコード数値')
+    
     print(df.dtypes)  # データ型の確認
     print(df.head())  # データの先頭を確認
     
@@ -117,7 +123,7 @@ df_last_6_months = df[(df['年月'] >= earliest_date) & (df['年月'] <= latest_
 clients = df_last_6_months['クライアント名'].unique()
 
 def create_client_chart(client):
-    client_data = df_last_6_months[df_last_6_months['クライアント名'] == client]
+    client_data = df_last_6_months[df_last_6_months['クライアント名'] == client].sort_values('年月')
     
     fig, ax1 = plt.subplots(figsize=(10, 6))  # グラフのサイズを調整
     
@@ -184,7 +190,7 @@ def create_client_chart(client):
     return fig
 
 # Streamlitアプリケーションの部分
-st.subheader("クライアント別 月末有効友だち数とブロック数の推移（最新6ヶ月）")
+st.subheader("クライアント別 月末有効友だち数とブロック数の推移（最新6ヶ月")
 
 # 2列のレイアウトを作成
 col1, col2 = st.columns(2)
