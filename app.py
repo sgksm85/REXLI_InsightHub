@@ -91,6 +91,19 @@ def load_line_friends_data():
     # '年月'列をdatetime型に変換（'YYYYMM'形式に対応）
     df['年月'] = pd.to_datetime(df['年月'].astype(str), format='%Y%m')
     
+    # 数値列を数値型に変換
+    df['月末有効友だち数'] = pd.to_numeric(df['月末有効友だち数'], errors='coerce')
+    df['月間ブロック数'] = pd.to_numeric(df['月間ブロック数'], errors='coerce')
+    
+    # 日付でソート
+    df = df.sort_values('年月')
+    
+    # 重複を削除（必要な場合）
+    df = df.drop_duplicates(subset=['年月', 'クライアント名'], keep='last')
+    
+    print(df.dtypes)  # データ型の確認
+    print(df.head())  # データの先頭を確認
+    
     return df
 
 df = load_line_friends_data()
@@ -136,7 +149,7 @@ def create_client_chart(client):
     
     bar2 = ax2.bar(dates, client_data['月間ブロック数'], 
                    width=20, alpha=bar_alpha, color=bar_color, label='月間ブロック数')
-    ax2.set_ylabel('月間���ロック数', fontsize=12, color=bar_color)
+    ax2.set_ylabel('月間ブロック数', fontsize=12, color=bar_color)
     ax2.tick_params(axis='y', labelcolor=bar_color, labelsize=15)  # Y軸のフォントサイズを変更
     
     # ブロック数のY軸の最大値を有効友だち数の30%に設定
