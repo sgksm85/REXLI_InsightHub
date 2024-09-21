@@ -102,7 +102,7 @@ def load_line_friends_data():
     df = df.drop_duplicates(subset=['年月', 'クライアント名'], keep='last')
     
     # クライアントコードを数値として解釈し、ソート用の列を作���
-    df['クライアントコード数値'] = df['クライアント名'].str.extract('(\d+)').astype(float)
+    df['クライアントコード数値'] = df['クライアント名'].str.extract(r'(\d+)').astype(float)
     
     # クライアントコード数値でソート
     df = df.sort_values('クライアントコード数値')
