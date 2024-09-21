@@ -2,13 +2,13 @@
 
 [server]
 headless = true  # 通常はサーバーモードなのでtrueに設定
-open_browser = false  # Streamlit Cloudではブラウザを開く必要がないのでfalseに
+# open_browser = false  # この行を削除または#でコメントアウト
 
 # ページの設定
 [theme]
 base="light"
 
 # アプリのタイトルとメニューの名称を設定
-[general]
-pageTitle = "REXLI InsightHub"  # ページのタイトルを変更
-appMenuItem = "Home"            # メニュー項目の名前を変更
+# [general]セクション全体を削除
+# pageTitle = "REXLI InsightHub"  # この行を削除
+# appMenuItem = "Home"            # この行を削除
