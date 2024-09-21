@@ -1,4 +1,5 @@
 import streamlit as st
+st.cache_data.clear()
 from airtable import Airtable
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -6,7 +7,7 @@ import matplotlib.dates as mdates
 import matplotlib.font_manager as fm
 import os
 import locale
-from dotenv import load_dotenv
+from dotenv import load_dotenv  # この行を追加
 
 # 現在のファイルのディレクトリパスを取得
 current_dir = os.path.dirname(os.path.abspath(__file__))
@@ -59,7 +60,8 @@ st.subheader("更新情報")
 # 更新情報のリスト
 updates = [
     {"date": "2024年9月8日", "description": "わたしが友だち推移数を追加しました。"},
-    {"date": "2024年9月18日", "description": "わたしが友だち推移数を追加しました。"}
+    {"date": "2024年9月18日", "description": "わたしが友だち推移数を追加しました。"},
+    {"date": "2024年9月22日", "description": "わたしが友だち推移数を追加しました。"}
 ]
 
 # 更新情報の表示
@@ -101,7 +103,7 @@ def load_line_friends_data():
     # 重複を削除（必要な場合）
     df = df.drop_duplicates(subset=['年月', 'クライアント名'], keep='last')
     
-    # クライアントコードを数値として解釈し、ソート用の列を作���
+    # クライアントコードを数値として解釈し、ソート用の列を作
     df['クライアントコード数値'] = df['クライアント名'].str.extract(r'(\d+)').astype(float)
     
     # クライアントコード数値でソート
@@ -190,7 +192,7 @@ def create_client_chart(client):
     return fig
 
 # Streamlitアプリケーションの部分
-st.subheader("クライアント別 月末有効友だち数とブロック数の推移（最新6ヶ月")
+st.subheader("クライアント 月末有効友だち数とブロック数の推移（最新6ヶ月")
 
 # 2列のレイアウトを作成
 col1, col2 = st.columns(2)
@@ -204,7 +206,7 @@ for i, client in enumerate(clients):
         with col2:
             st.pyplot(create_client_chart(client))
 
-# クライアントごとのデータを計算する関数
+# クラ��アントごとのデータを計算する関数
 def calculate_client_stats(df):
     stats = []
     for client in df['クライアント名'].unique():
