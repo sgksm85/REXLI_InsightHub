@@ -71,7 +71,7 @@ for update in updates:
 # 空白行を追加してセクションを分ける
 st.write("")
 
-# LINEフレンドデータの取得と表示
+# LINEフレンドデータの取得と表示（5_月別友だち Tableより取得）
 @st.cache_data
 def load_line_friends_data():
     airtable = Airtable(AIRTABLE_BASE_ID, AIRTABLE_TABLE_NAME, api_key=AIRTABLE_API_KEY)
@@ -192,7 +192,7 @@ def create_client_chart(client):
     return fig
 
 # Streamlitアプリケーションの部分
-st.subheader("クライアント 月末有効友だち数とブロック数の推移（最新6ヶ月")
+st.subheader("クライアント 月末有効友だち数とブロック数の推移（最新6ヶ月)")
 
 # 2列のレイアウトを作成
 col1, col2 = st.columns(2)
