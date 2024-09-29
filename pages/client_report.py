@@ -6,11 +6,15 @@ from urllib.parse import quote, unquote
 st.set_page_config(page_title="Client Report", page_icon="📊")
 
 # クライアントフォルダパスの設定
-base_client_folder = "/Users/shigikasumi/Dropbox/Projects/Projects/01_REXLI/__General_Tasks/REXLI_InsightHub/data/clients"
+base_client_folder = os.path.join(os.path.dirname(__file__), "..", "data", "clients")
 
 # クライアントリストをあいうえお順にソート
-clients = [client for client in os.listdir(base_client_folder) if os.path.isdir(os.path.join(base_client_folder, client))]
-clients.sort(key=lambda x: x.lower())
+try:
+    clients = [client for client in os.listdir(base_client_folder) if os.path.isdir(os.path.join(base_client_folder, client))]
+    clients.sort(key=lambda x: x.lower())
+except FileNotFoundError:
+    st.error(f"クライアントフォルダが見つかりません: {base_client_folder}")
+    clients = []
 
 # サイドバーにクライアント名をリンク形式で表示（変更なし）
 st.sidebar.title("Client Reports")
